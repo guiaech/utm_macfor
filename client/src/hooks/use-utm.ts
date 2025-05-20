@@ -36,27 +36,6 @@ export const useUtm = () => {
     }
   }, []);
 
-  // Generate the URL whenever parameters change
-  const generatedUrl = useMemo(() => {
-    if (!websiteUrl || !validateWebsiteUrl(websiteUrl)) {
-      return "";
-    }
-
-    try {
-      const url = new URL(websiteUrl);
-      
-      if (utmSource) url.searchParams.append("utm_source", utmSource);
-      if (utmMedium) url.searchParams.append("utm_medium", utmMedium);
-      if (utmCampaign) url.searchParams.append("utm_campaign", utmCampaign);
-      if (utmContent) url.searchParams.append("utm_content", utmContent);
-      if (utmTerm) url.searchParams.append("utm_term", utmTerm);
-      
-      return url.toString();
-    } catch (e) {
-      return "";
-    }
-  }, [websiteUrl, utmSource, utmMedium, utmCampaign, utmContent, utmTerm]);
-
   // Validate URL format
   const validateWebsiteUrl = (url: string): boolean => {
     if (!url) return true;
@@ -88,6 +67,27 @@ export const useUtm = () => {
     
     return isValid;
   };
+
+  // Generate the URL whenever parameters change
+  const generatedUrl = useMemo(() => {
+    if (!websiteUrl) {
+      return "";
+    }
+
+    try {
+      const url = new URL(websiteUrl);
+      
+      if (utmSource) url.searchParams.append("utm_source", utmSource);
+      if (utmMedium) url.searchParams.append("utm_medium", utmMedium);
+      if (utmCampaign) url.searchParams.append("utm_campaign", utmCampaign);
+      if (utmContent) url.searchParams.append("utm_content", utmContent);
+      if (utmTerm) url.searchParams.append("utm_term", utmTerm);
+      
+      return url.toString();
+    } catch (e) {
+      return "";
+    }
+  }, [websiteUrl, utmSource, utmMedium, utmCampaign, utmContent, utmTerm]);
 
   // Add to history
   const addToHistory = () => {
