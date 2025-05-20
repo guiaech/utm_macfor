@@ -104,7 +104,7 @@ const Home: React.FC = () => {
       <footer className="bg-white dark:bg-gray-800 border-t mt-12 py-6">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <p className="text-center text-sm text-gray-500 dark:text-gray-400">
-            © {new Date().getFullYear()} Gerador de UTM. Todos os direitos
+            © {new Date().getFullYear()} Macfor. Todos os direitos
             reservados.
           </p>
         </div>
