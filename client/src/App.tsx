@@ -1,4 +1,5 @@
-import { Switch, Route } from "wouter";
+import { useState, useEffect } from "react";
+import { Router, Switch, Route } from "wouter";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
@@ -7,12 +8,32 @@ import { ThemeProvider, ThemeToggle } from "@/providers/theme-provider";
 import NotFound from "@/pages/not-found";
 import Home from "@/pages/Home";
 
-function Router() {
+function useHashLocation(): [string, (to: string) => void] {
+  const [location, setLocation] = useState(() => window.location.hash.slice(1) || "/");
+
+  useEffect(() => {
+    const onHashChange = () => setLocation(window.location.hash.slice(1) || "/");
+    window.addEventListener("hashchange", onHashChange);
+    return () => window.removeEventListener("hashchange", onHashChange);
+  }, []);
+
+  const navigate = (to: string) => {
+    if (to !== location) {
+      window.location.hash = to;
+    }
+  };
+
+  return [location, navigate];
+}
+
+function RouterComponent() {
   return (
-    <Switch>
-      <Route path="/" component={Home} />
-      <Route component={NotFound} />
-    </Switch>
+    <Router hook={useHashLocation}>
+      <Switch>
+        <Route path="/" component={Home} />
+        <Route component={NotFound} />
+      </Switch>
+    </Router>
   );
 }
 
@@ -25,7 +46,7 @@ function App() {
             <ThemeToggle />
           </div>
           <Toaster />
-          <Router />
+          <RouterComponent />
         </TooltipProvider>
       </ThemeProvider>
     </QueryClientProvider>
