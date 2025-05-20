@@ -6,12 +6,12 @@ import { useToast } from "@/hooks/use-toast";
 import { useUtm } from "@/hooks/use-utm";
 
 const Home: React.FC = () => {
-  const { 
-    websiteUrl, 
-    utmSource, 
-    utmMedium, 
-    utmCampaign, 
-    utmContent, 
+  const {
+    websiteUrl,
+    utmSource,
+    utmMedium,
+    utmCampaign,
+    utmContent,
     utmTerm,
     errors,
     historyItems,
@@ -27,13 +27,13 @@ const Home: React.FC = () => {
     clearHistory,
     setFromHistoryItem,
     validateWebsiteUrl,
-    validateUtmParameter
+    validateUtmParameter,
   } = useUtm();
 
   const { toast } = useToast();
 
   const copyToClipboard = async () => {
-    if (generatedUrl && generatedUrl.startsWith('http')) {
+    if (generatedUrl && generatedUrl.startsWith("http")) {
       try {
         await navigator.clipboard.writeText(generatedUrl);
         toast({
@@ -60,7 +60,9 @@ const Home: React.FC = () => {
       <header className="bg-white dark:bg-gray-800 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
           <div className="flex items-center">
-            <h1 className="text-xl font-bold text-primary">Gerador de UTM</h1>
+            <h1 className="text-xl font-bold text-primary">
+              MACFOR - UTM Builder{" "}
+            </h1>
           </div>
         </div>
       </header>
@@ -102,7 +104,8 @@ const Home: React.FC = () => {
       <footer className="bg-white dark:bg-gray-800 border-t mt-12 py-6">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <p className="text-center text-sm text-gray-500 dark:text-gray-400">
-            © {new Date().getFullYear()} Gerador de UTM. Todos os direitos reservados.
+            © {new Date().getFullYear()} Gerador de UTM. Todos os direitos
+            reservados.
           </p>
         </div>
       </footer>
