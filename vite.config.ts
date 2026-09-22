@@ -4,7 +4,8 @@ import path from "path";
 import runtimeErrorOverlay from "@replit/vite-plugin-runtime-error-modal";
 
 export default defineConfig({
-  base: '/utm_macfor/',
+  // No Netlify o site roda na raiz; no GitHub Pages, sob /utm_macfor/.
+  base: process.env.NETLIFY ? '/' : '/utm_macfor/',
   plugins: [
     react(),
     runtimeErrorOverlay(),
